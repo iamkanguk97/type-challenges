@@ -8,4 +8,13 @@
 type Result = MyExclude<'a' | 'b' | 'c', 'a'> // 'b' | 'c'
 ```
 
+풀이:
+
+```ts
+// T가 Union 타입이면 분배법칙이 적용된다는 것이 제일 중요!
+type MyExclude<T, U> = T extends U ? never : T
+```
+
+설명 블로그: [[TypeScript] T extends U ? X : Y 는 정확히 어떤 의미일까?](https://dev-iamkanguk.tistory.com/entry/TypeScript-T-extends-U-X-Y-%EB%8A%94-%EC%A0%95%ED%99%95%ED%9E%88-%EC%96%B4%EB%96%A4-%EC%9D%98%EB%AF%B8%EC%9D%BC%EA%B9%8C)
+
 <!--info-footer-start--><br><a href="../../README.ko.md" target="_blank"><img src="https://img.shields.io/badge/-%EB%8F%8C%EC%95%84%EA%B0%80%EA%B8%B0-grey" alt="돌아가기"/></a> <a href="https://tsch.js.org/43/answer/ko" target="_blank"><img src="https://img.shields.io/badge/-%EC%A0%95%EB%8B%B5%20%EA%B3%B5%EC%9C%A0%ED%95%98%EA%B8%B0-teal" alt="정답 공유하기"/></a> <a href="https://tsch.js.org/43/solutions" target="_blank"><img src="https://img.shields.io/badge/-%EC%A0%95%EB%8B%B5%20%EB%B3%B4%EA%B8%B0-de5a77?logo=awesome-lists&logoColor=white" alt="정답 보기"/></a> <!--info-footer-end-->
