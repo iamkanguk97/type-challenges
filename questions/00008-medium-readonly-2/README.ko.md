@@ -22,4 +22,29 @@ todo.description = "barFoo" // Error: cannot reassign a readonly property
 todo.completed = true // OK
 ```
 
+정답:
+
+```ts
+// 1번째 방법과 2번째 방법의 차이는 내장 메서드인 Omit을 사용했냐 안했냐의 차이!
+// 다양하게 구현할 수 있었던 문제였던 것 같음. 하지만 어려웠음
+// Intersection을 이용해야 겠다는 생각을 못함.
+
+/* ------------- 1번째 방법 ------------- */
+type MyReadonly2<T, K extends keyof T = keyof T> = {
+  readonly [P in keyof T as P extends K ? P : never]: T[P]
+} & {
+  [P in keyof T as P extends K ? never : P]: T[P]
+}
+
+/* ------------- 2번째 방법 ------------- */
+type MyReadonly2<T, K extends keyof T = keyof T> = {
+  readonly [P in K]: T[P]
+} & {
+  [P in keyof Omit<T, K>]: T[P]
+}
+```
+
+
+풀이 해설: [[타입챌린지-MEDIUM] 8: Readonly 2](https://dev-iamkanguk.tistory.com/entry/%ED%83%80%EC%9E%85%EC%B1%8C%EB%A6%B0%EC%A7%80-MEDIUM-8-Readonly-2)
+
 <!--info-footer-start--><br><a href="../../README.ko.md" target="_blank"><img src="https://img.shields.io/badge/-%EB%8F%8C%EC%95%84%EA%B0%80%EA%B8%B0-grey" alt="돌아가기"/></a> <a href="https://tsch.js.org/8/answer/ko" target="_blank"><img src="https://img.shields.io/badge/-%EC%A0%95%EB%8B%B5%20%EA%B3%B5%EC%9C%A0%ED%95%98%EA%B8%B0-teal" alt="정답 공유하기"/></a> <a href="https://tsch.js.org/8/solutions" target="_blank"><img src="https://img.shields.io/badge/-%EC%A0%95%EB%8B%B5%20%EB%B3%B4%EA%B8%B0-de5a77?logo=awesome-lists&logoColor=white" alt="정답 보기"/></a> <hr><h3>관련된 문제들</h3><a href="https://github.com/type-challenges/type-challenges/blob/main/questions/00007-easy-readonly/README.ko.md" target="_blank"><img src="https://img.shields.io/badge/-7%E3%83%BBReadonly-7aad0c" alt="7・Readonly"/></a>  <a href="https://github.com/type-challenges/type-challenges/blob/main/questions/00009-medium-deep-readonly/README.ko.md" target="_blank"><img src="https://img.shields.io/badge/-9%E3%83%BBDeep%20Readonly-d9901a" alt="9・Deep Readonly"/></a> <!--info-footer-end-->
