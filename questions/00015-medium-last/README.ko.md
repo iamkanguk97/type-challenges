@@ -14,4 +14,15 @@ type tail1 = Last<arr1> // expected to be 'c'
 type tail2 = Last<arr2> // expected to be 1
 ```
 
+정답:
+
+```ts
+/**
+ * 1번 풀이: 앞에 any를 추가해주고 T 배열을 추가해줌으로서 새로운 배열을 만든다. 그리고 T['length']를 사용하면 마지막 요소를 가져올 수 있다.
+ * 2번 풀이: infer를 사용해서 구조분해를 하면서 마지막 요소를 가져올 수 있다.
+ */
+type Last<T extends any[]> = [any, ...T][T['length']]
+type Last<T extends any[]> = T extends [...infer _, infer U] ? U : never;
+```
+
 <!--info-footer-start--><br><a href="../../README.ko.md" target="_blank"><img src="https://img.shields.io/badge/-%EB%8F%8C%EC%95%84%EA%B0%80%EA%B8%B0-grey" alt="돌아가기"/></a> <a href="https://tsch.js.org/15/answer/ko" target="_blank"><img src="https://img.shields.io/badge/-%EC%A0%95%EB%8B%B5%20%EA%B3%B5%EC%9C%A0%ED%95%98%EA%B8%B0-teal" alt="정답 공유하기"/></a> <a href="https://tsch.js.org/15/solutions" target="_blank"><img src="https://img.shields.io/badge/-%EC%A0%95%EB%8B%B5%20%EB%B3%B4%EA%B8%B0-de5a77?logo=awesome-lists&logoColor=white" alt="정답 보기"/></a> <hr><h3>관련된 문제들</h3><a href="https://github.com/type-challenges/type-challenges/blob/main/questions/00014-easy-first/README.ko.md" target="_blank"><img src="https://img.shields.io/badge/-14%E3%83%BBFirst%20of%20Array-7aad0c" alt="14・First of Array"/></a>  <a href="https://github.com/type-challenges/type-challenges/blob/main/questions/00016-medium-pop/README.ko.md" target="_blank"><img src="https://img.shields.io/badge/-16%E3%83%BBPop-d9901a" alt="16・Pop"/></a> <!--info-footer-end-->
