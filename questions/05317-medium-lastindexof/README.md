@@ -9,5 +9,16 @@ type Res1 = LastIndexOf<[1, 2, 3, 2, 1], 2> // 3
 type Res2 = LastIndexOf<[0, 0, 0], 2> // -1
 ```
 
+정답:
+
+```ts
+type LastIndexOf<T extends unknown[], U>
+  = T extends [...infer A, infer B]
+    ? Equal<B, U> extends true
+      ? A['length']
+      : LastIndexOf<A, U>
+    : -1
+```
+
 
 <!--info-footer-start--><br><a href="../../README.md" target="_blank"><img src="https://img.shields.io/badge/-Back-grey" alt="Back"/></a> <a href="https://tsch.js.org/5317/answer" target="_blank"><img src="https://img.shields.io/badge/-Share%20your%20Solutions-teal" alt="Share your Solutions"/></a> <a href="https://tsch.js.org/5317/solutions" target="_blank"><img src="https://img.shields.io/badge/-Check%20out%20Solutions-de5a77?logo=awesome-lists&logoColor=white" alt="Check out Solutions"/></a> <!--info-footer-end-->
