@@ -9,6 +9,10 @@ export type Equal<X, Y> =
   (<T>() => T extends Y ? 1 : 2) ? true : false
 export type NotEqual<X, Y> = true extends Equal<X, Y> ? false : true
 
+/** Exported by iamkanguk */
+export type Expression<X> = <T>() => T extends X ? true : false;
+export type OtherEqual<X, Y> = Expression<X> extends Expression<Y> ? true : false;
+
 // https://stackoverflow.com/questions/49927523/disallow-call-with-any/49928360#49928360
 export type IsAny<T> = 0 extends (1 & T) ? true : false
 export type NotAny<T> = true extends IsAny<T> ? false : true
